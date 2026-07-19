@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 import { Logo, BetaBadge } from "./Logo";
+import { useAuth } from "../../contexts/auth";
 
 const NAV = [
   { to: "/features", label: "Product" },
@@ -14,6 +15,7 @@ const NAV = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const auth = useAuth();
 
   useEffect(() => {
     if (!open) return;
@@ -30,7 +32,11 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-5 md:h-[72px] md:px-8">
         <div className="flex items-center gap-6">
-          <Link to="/" className="flex items-center gap-2.5 focus-ring rounded-[8px]" aria-label="AWMate home">
+          <Link
+            to="/"
+            className="flex items-center gap-2.5 focus-ring rounded-[8px]"
+            aria-label="AWMate home"
+          >
             <Logo />
             <span className="text-[15px] font-semibold tracking-[-0.01em] text-text-primary">
               AWMate
@@ -61,6 +67,32 @@ export function SiteHeader() {
           >
             View documentation
           </Link>
+          {auth.user ? (
+            <>
+              <Link
+                to={auth.allowed ? "/account" : "/access-denied"}
+                className="inline-flex h-9 items-center rounded-[10px] border border-border px-3 text-[14px] font-medium text-text-primary transition-colors hover:bg-surface-hover"
+              >
+                {auth.allowed ? "Account" : "Access pending"}
+              </Link>
+              <button
+                type="button"
+                aria-label="Sign out"
+                title="Sign out"
+                onClick={() => auth.signOut().catch(() => undefined)}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-border text-text-secondary transition-colors hover:bg-surface-hover hover:text-text-primary"
+              >
+                <LogOut size={15} />
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/login"
+              className="inline-flex h-9 items-center rounded-[10px] border border-border px-3 text-[14px] font-medium text-text-primary transition-colors hover:bg-surface-hover"
+            >
+              Sign in
+            </Link>
+          )}
           <Link
             to="/download"
             className="inline-flex h-9 items-center rounded-[10px] bg-primary px-4 text-[14px] font-medium text-primary-foreground transition-opacity hover:opacity-90"
@@ -102,6 +134,19 @@ export function SiteHeader() {
                   </Link>
                 </li>
               ))}
+              <li className="mt-3 border-t border-border pt-4">
+                <Link
+                  to={auth.user ? (auth.allowed ? "/account" : "/access-denied") : "/login"}
+                  onClick={() => setOpen(false)}
+                  className="flex h-11 items-center rounded-[10px] px-3 text-[15px] font-medium text-text-primary hover:bg-surface-hover"
+                >
+                  {auth.user
+                    ? auth.allowed
+                      ? "Account"
+                      : "Access pending"
+                    : "Sign in with Google"}
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>

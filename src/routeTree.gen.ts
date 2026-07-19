@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SecurityRouteImport } from './routes/security'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as EnterpriseRouteImport } from './routes/enterprise'
@@ -18,6 +19,8 @@ import { Route as DownloadRouteImport } from './routes/download'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ChangelogRouteImport } from './routes/changelog'
+import { Route as AccountRouteImport } from './routes/account'
+import { Route as AccessDeniedRouteImport } from './routes/access-denied'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LegalTermsOfServiceRouteImport } from './routes/legal.terms-of-service'
@@ -36,6 +39,7 @@ import { Route as DocsFileAccessRouteImport } from './routes/docs.file-access'
 import { Route as DocsFaqRouteImport } from './routes/docs.faq'
 import { Route as DocsConfigurationRouteImport } from './routes/docs.configuration'
 import { Route as DocsChatsRouteImport } from './routes/docs.chats'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as ApiReleasesLatestRouteImport } from './routes/api/releases/latest'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -46,6 +50,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const SecurityRoute = SecurityRouteImport.update({
   id: '/security',
   path: '/security',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
@@ -81,6 +90,16 @@ const ContactRoute = ContactRouteImport.update({
 const ChangelogRoute = ChangelogRouteImport.update({
   id: '/changelog',
   path: '/changelog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccessDeniedRoute = AccessDeniedRouteImport.update({
+  id: '/access-denied',
+  path: '/access-denied',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -173,6 +192,11 @@ const DocsChatsRoute = DocsChatsRouteImport.update({
   path: '/chats',
   getParentRoute: () => DocsRoute,
 } as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiReleasesLatestRoute = ApiReleasesLatestRouteImport.update({
   id: '/api/releases/latest',
   path: '/api/releases/latest',
@@ -182,6 +206,8 @@ const ApiReleasesLatestRoute = ApiReleasesLatestRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/access-denied': typeof AccessDeniedRoute
+  '/account': typeof AccountRoute
   '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/docs': typeof DocsRouteWithChildren
@@ -189,8 +215,10 @@ export interface FileRoutesByFullPath {
   '/enterprise': typeof EnterpriseRoute
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/login': typeof LoginRoute
   '/security': typeof SecurityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/docs/chats': typeof DocsChatsRoute
   '/docs/configuration': typeof DocsConfigurationRoute
   '/docs/faq': typeof DocsFaqRoute
@@ -212,6 +240,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/access-denied': typeof AccessDeniedRoute
+  '/account': typeof AccountRoute
   '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/docs': typeof DocsRouteWithChildren
@@ -219,8 +249,10 @@ export interface FileRoutesByTo {
   '/enterprise': typeof EnterpriseRoute
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/login': typeof LoginRoute
   '/security': typeof SecurityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/docs/chats': typeof DocsChatsRoute
   '/docs/configuration': typeof DocsConfigurationRoute
   '/docs/faq': typeof DocsFaqRoute
@@ -243,6 +275,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/access-denied': typeof AccessDeniedRoute
+  '/account': typeof AccountRoute
   '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/docs': typeof DocsRouteWithChildren
@@ -250,8 +284,10 @@ export interface FileRoutesById {
   '/enterprise': typeof EnterpriseRoute
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/login': typeof LoginRoute
   '/security': typeof SecurityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/docs/chats': typeof DocsChatsRoute
   '/docs/configuration': typeof DocsConfigurationRoute
   '/docs/faq': typeof DocsFaqRoute
@@ -275,6 +311,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/access-denied'
+    | '/account'
     | '/changelog'
     | '/contact'
     | '/docs'
@@ -282,8 +320,10 @@ export interface FileRouteTypes {
     | '/enterprise'
     | '/features'
     | '/how-it-works'
+    | '/login'
     | '/security'
     | '/sitemap.xml'
+    | '/auth/callback'
     | '/docs/chats'
     | '/docs/configuration'
     | '/docs/faq'
@@ -305,6 +345,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/access-denied'
+    | '/account'
     | '/changelog'
     | '/contact'
     | '/docs'
@@ -312,8 +354,10 @@ export interface FileRouteTypes {
     | '/enterprise'
     | '/features'
     | '/how-it-works'
+    | '/login'
     | '/security'
     | '/sitemap.xml'
+    | '/auth/callback'
     | '/docs/chats'
     | '/docs/configuration'
     | '/docs/faq'
@@ -335,6 +379,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/access-denied'
+    | '/account'
     | '/changelog'
     | '/contact'
     | '/docs'
@@ -342,8 +388,10 @@ export interface FileRouteTypes {
     | '/enterprise'
     | '/features'
     | '/how-it-works'
+    | '/login'
     | '/security'
     | '/sitemap.xml'
+    | '/auth/callback'
     | '/docs/chats'
     | '/docs/configuration'
     | '/docs/faq'
@@ -366,6 +414,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AccessDeniedRoute: typeof AccessDeniedRoute
+  AccountRoute: typeof AccountRoute
   ChangelogRoute: typeof ChangelogRoute
   ContactRoute: typeof ContactRoute
   DocsRoute: typeof DocsRouteWithChildren
@@ -373,8 +423,10 @@ export interface RootRouteChildren {
   EnterpriseRoute: typeof EnterpriseRoute
   FeaturesRoute: typeof FeaturesRoute
   HowItWorksRoute: typeof HowItWorksRoute
+  LoginRoute: typeof LoginRoute
   SecurityRoute: typeof SecurityRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
   LegalLicensesRoute: typeof LegalLicensesRoute
   LegalPrivacyPolicyRoute: typeof LegalPrivacyPolicyRoute
   LegalTermsOfServiceRoute: typeof LegalTermsOfServiceRoute
@@ -395,6 +447,13 @@ declare module '@tanstack/react-router' {
       path: '/security'
       fullPath: '/security'
       preLoaderRoute: typeof SecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/how-it-works': {
@@ -444,6 +503,20 @@ declare module '@tanstack/react-router' {
       path: '/changelog'
       fullPath: '/changelog'
       preLoaderRoute: typeof ChangelogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/access-denied': {
+      id: '/access-denied'
+      path: '/access-denied'
+      fullPath: '/access-denied'
+      preLoaderRoute: typeof AccessDeniedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -572,6 +645,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsChatsRouteImport
       parentRoute: typeof DocsRoute
     }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/releases/latest': {
       id: '/api/releases/latest'
       path: '/api/releases/latest'
@@ -619,6 +699,8 @@ const DocsRouteWithChildren = DocsRoute._addFileChildren(DocsRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AccessDeniedRoute: AccessDeniedRoute,
+  AccountRoute: AccountRoute,
   ChangelogRoute: ChangelogRoute,
   ContactRoute: ContactRoute,
   DocsRoute: DocsRouteWithChildren,
@@ -626,8 +708,10 @@ const rootRouteChildren: RootRouteChildren = {
   EnterpriseRoute: EnterpriseRoute,
   FeaturesRoute: FeaturesRoute,
   HowItWorksRoute: HowItWorksRoute,
+  LoginRoute: LoginRoute,
   SecurityRoute: SecurityRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
   LegalLicensesRoute: LegalLicensesRoute,
   LegalPrivacyPolicyRoute: LegalPrivacyPolicyRoute,
   LegalTermsOfServiceRoute: LegalTermsOfServiceRoute,
@@ -636,3 +720,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
