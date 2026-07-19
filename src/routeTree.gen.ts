@@ -19,6 +19,7 @@ import { Route as DownloadRouteImport } from './routes/download'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ChangelogRouteImport } from './routes/changelog'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AccessDeniedRouteImport } from './routes/access-denied'
 import { Route as AboutRouteImport } from './routes/about'
@@ -41,6 +42,8 @@ import { Route as DocsConfigurationRouteImport } from './routes/docs.configurati
 import { Route as DocsChatsRouteImport } from './routes/docs.chats'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as ApiReleasesLatestRouteImport } from './routes/api/releases/latest'
+import { Route as ApiAdminUsersRouteImport } from './routes/api/admin/users'
+import { Route as ApiAdminAuditRouteImport } from './routes/api/admin/audit'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -90,6 +93,11 @@ const ContactRoute = ContactRouteImport.update({
 const ChangelogRoute = ChangelogRouteImport.update({
   id: '/changelog',
   path: '/changelog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccountRoute = AccountRouteImport.update({
@@ -202,12 +210,23 @@ const ApiReleasesLatestRoute = ApiReleasesLatestRouteImport.update({
   path: '/api/releases/latest',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAdminUsersRoute = ApiAdminUsersRouteImport.update({
+  id: '/api/admin/users',
+  path: '/api/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminAuditRoute = ApiAdminAuditRouteImport.update({
+  id: '/api/admin/audit',
+  path: '/api/admin/audit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/access-denied': typeof AccessDeniedRoute
   '/account': typeof AccountRoute
+  '/admin': typeof AdminRoute
   '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/docs': typeof DocsRouteWithChildren
@@ -235,6 +254,8 @@ export interface FileRoutesByFullPath {
   '/legal/licenses': typeof LegalLicensesRoute
   '/legal/privacy-policy': typeof LegalPrivacyPolicyRoute
   '/legal/terms-of-service': typeof LegalTermsOfServiceRoute
+  '/api/admin/audit': typeof ApiAdminAuditRoute
+  '/api/admin/users': typeof ApiAdminUsersRoute
   '/api/releases/latest': typeof ApiReleasesLatestRoute
 }
 export interface FileRoutesByTo {
@@ -242,6 +263,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/access-denied': typeof AccessDeniedRoute
   '/account': typeof AccountRoute
+  '/admin': typeof AdminRoute
   '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/docs': typeof DocsRouteWithChildren
@@ -269,6 +291,8 @@ export interface FileRoutesByTo {
   '/legal/licenses': typeof LegalLicensesRoute
   '/legal/privacy-policy': typeof LegalPrivacyPolicyRoute
   '/legal/terms-of-service': typeof LegalTermsOfServiceRoute
+  '/api/admin/audit': typeof ApiAdminAuditRoute
+  '/api/admin/users': typeof ApiAdminUsersRoute
   '/api/releases/latest': typeof ApiReleasesLatestRoute
 }
 export interface FileRoutesById {
@@ -277,6 +301,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/access-denied': typeof AccessDeniedRoute
   '/account': typeof AccountRoute
+  '/admin': typeof AdminRoute
   '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/docs': typeof DocsRouteWithChildren
@@ -304,6 +329,8 @@ export interface FileRoutesById {
   '/legal/licenses': typeof LegalLicensesRoute
   '/legal/privacy-policy': typeof LegalPrivacyPolicyRoute
   '/legal/terms-of-service': typeof LegalTermsOfServiceRoute
+  '/api/admin/audit': typeof ApiAdminAuditRoute
+  '/api/admin/users': typeof ApiAdminUsersRoute
   '/api/releases/latest': typeof ApiReleasesLatestRoute
 }
 export interface FileRouteTypes {
@@ -313,6 +340,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/access-denied'
     | '/account'
+    | '/admin'
     | '/changelog'
     | '/contact'
     | '/docs'
@@ -340,6 +368,8 @@ export interface FileRouteTypes {
     | '/legal/licenses'
     | '/legal/privacy-policy'
     | '/legal/terms-of-service'
+    | '/api/admin/audit'
+    | '/api/admin/users'
     | '/api/releases/latest'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -347,6 +377,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/access-denied'
     | '/account'
+    | '/admin'
     | '/changelog'
     | '/contact'
     | '/docs'
@@ -374,6 +405,8 @@ export interface FileRouteTypes {
     | '/legal/licenses'
     | '/legal/privacy-policy'
     | '/legal/terms-of-service'
+    | '/api/admin/audit'
+    | '/api/admin/users'
     | '/api/releases/latest'
   id:
     | '__root__'
@@ -381,6 +414,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/access-denied'
     | '/account'
+    | '/admin'
     | '/changelog'
     | '/contact'
     | '/docs'
@@ -408,6 +442,8 @@ export interface FileRouteTypes {
     | '/legal/licenses'
     | '/legal/privacy-policy'
     | '/legal/terms-of-service'
+    | '/api/admin/audit'
+    | '/api/admin/users'
     | '/api/releases/latest'
   fileRoutesById: FileRoutesById
 }
@@ -416,6 +452,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AccessDeniedRoute: typeof AccessDeniedRoute
   AccountRoute: typeof AccountRoute
+  AdminRoute: typeof AdminRoute
   ChangelogRoute: typeof ChangelogRoute
   ContactRoute: typeof ContactRoute
   DocsRoute: typeof DocsRouteWithChildren
@@ -430,6 +467,8 @@ export interface RootRouteChildren {
   LegalLicensesRoute: typeof LegalLicensesRoute
   LegalPrivacyPolicyRoute: typeof LegalPrivacyPolicyRoute
   LegalTermsOfServiceRoute: typeof LegalTermsOfServiceRoute
+  ApiAdminAuditRoute: typeof ApiAdminAuditRoute
+  ApiAdminUsersRoute: typeof ApiAdminUsersRoute
   ApiReleasesLatestRoute: typeof ApiReleasesLatestRoute
 }
 
@@ -503,6 +542,13 @@ declare module '@tanstack/react-router' {
       path: '/changelog'
       fullPath: '/changelog'
       preLoaderRoute: typeof ChangelogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/account': {
@@ -659,6 +705,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiReleasesLatestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/admin/users': {
+      id: '/api/admin/users'
+      path: '/api/admin/users'
+      fullPath: '/api/admin/users'
+      preLoaderRoute: typeof ApiAdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/audit': {
+      id: '/api/admin/audit'
+      path: '/api/admin/audit'
+      fullPath: '/api/admin/audit'
+      preLoaderRoute: typeof ApiAdminAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -701,6 +761,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AccessDeniedRoute: AccessDeniedRoute,
   AccountRoute: AccountRoute,
+  AdminRoute: AdminRoute,
   ChangelogRoute: ChangelogRoute,
   ContactRoute: ContactRoute,
   DocsRoute: DocsRouteWithChildren,
@@ -715,6 +776,8 @@ const rootRouteChildren: RootRouteChildren = {
   LegalLicensesRoute: LegalLicensesRoute,
   LegalPrivacyPolicyRoute: LegalPrivacyPolicyRoute,
   LegalTermsOfServiceRoute: LegalTermsOfServiceRoute,
+  ApiAdminAuditRoute: ApiAdminAuditRoute,
+  ApiAdminUsersRoute: ApiAdminUsersRoute,
   ApiReleasesLatestRoute: ApiReleasesLatestRoute,
 }
 export const routeTree = rootRouteImport

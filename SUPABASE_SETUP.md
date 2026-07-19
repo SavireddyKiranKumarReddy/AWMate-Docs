@@ -10,7 +10,10 @@ account.
 2. Open **SQL Editor**, paste the full contents of
    `supabase/migrations/202607190001_google_access.sql`, and run it.
 3. Open **Project Settings → API** and copy the Project URL and Publishable key.
-4. Never copy the `service_role` key into the website, desktop app, GitHub, or a `VITE_` variable.
+4. Copy a new Supabase **Secret key** (`sb_secret_...`) for the server-side admin API. A legacy
+   `service_role` key also works, but Supabase recommends secret keys for new server deployments.
+5. Never copy the secret/service-role key into browser code, the desktop app, GitHub, or a `VITE_`
+   variable.
 
 ## 2. Configure Google Cloud
 
@@ -45,15 +48,25 @@ Copy `.env.example` to `.env.local` and replace the public values:
 VITE_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
 VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_REPLACE_ME
 VITE_SITE_URL=http://localhost:3000
+SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=sb_secret_REPLACE_ME
 ```
 
 Set the same variables in production hosting, with
 `VITE_SITE_URL=https://awmate.nxtgensec.org`. The publishable key is safe for browser use; Row Level
-Security protects the data.
+Security protects the data. `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are server-only.
+
+For Vercel, add all five variables under **Project Settings → Environment Variables**, enable them
+for Production (and Preview if needed), then redeploy. Mark `SUPABASE_SERVICE_ROLE_KEY` as sensitive
+and never give it a `VITE_` prefix.
 
 ## 5. Approve accounts
 
-Create your first owner in the Supabase SQL Editor:
+After the base migration, run
+`supabase/migrations/202607190002_admin_panel.sql`. It grants permanent owner access to
+`kiransavireddy@gmail.com` and adds the dashboard indexes.
+
+To create a different owner manually in the Supabase SQL Editor:
 
 ```sql
 insert into public.access_grants (email, role, status)
@@ -83,7 +96,22 @@ update public.access_grants set status = 'revoked' where email = 'person@example
 
 Use `suspended` for a temporary block and `expires_at` for time-limited access.
 
-## 6. Usage and activity tracking
+## 6. Admin console
+
+After signing in as `kiransavireddy@gmail.com`, open `/admin`. The protected console can:
+
+- add approved Google email addresses before or after their first login;
+- assign owner, admin, member, or auditor roles;
+- activate, suspend, revoke, or leave access pending;
+- set daily request limits, monthly token limits, and access expiry;
+- show Google-account linkage, last sign-in, usage summaries, and latest activity;
+- record every access change in the audit log.
+
+Only owners can manage owner/admin accounts. The primary owner and final active owner are protected
+against accidental removal. All writes are re-authorized by the server API; hiding controls in the
+browser is not treated as security.
+
+## 7. Usage and activity tracking
 
 The migration creates `profiles`, `access_grants`, `usage_events`, and `audit_events`. The browser can
 read only its own allowed rows and cannot write trusted grants, usage, or audit data.
@@ -93,7 +121,7 @@ call the model, and then write usage/audit events with a server-only service-rol
 key in the browser or desktop app. UI guards are for user experience; the backend and RLS enforce
 security.
 
-## 7. Test checklist
+## 8. Test checklist
 
 1. Start the site with `bun run dev` and open `/login`.
 2. Confirm an approved Google account reaches `/account`.
@@ -101,3 +129,6 @@ security.
 4. Change the approved account to `revoked`, click **Check access again**, and confirm it is blocked.
 5. Confirm `/`, `/features`, `/docs/getting-started`, and `/download` stay public.
 6. Confirm the Google secret and Supabase service-role key are absent from source and browser output.
+7. Confirm the owner can open `/admin`, add a test email, suspend it, and see both changes in the
+   audit list.
+8. Confirm a member receives HTTP 403 from `/api/admin/users` even if they call it directly.

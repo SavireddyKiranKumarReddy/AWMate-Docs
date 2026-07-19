@@ -69,6 +69,14 @@ export function SiteHeader() {
           </Link>
           {auth.user ? (
             <>
+              {auth.allowed && (auth.grant?.role === "owner" || auth.grant?.role === "admin") && (
+                <Link
+                  to="/admin"
+                  className="inline-flex h-9 items-center rounded-[10px] border border-border px-3 text-[14px] font-medium text-text-primary transition-colors hover:bg-surface-hover"
+                >
+                  Admin
+                </Link>
+              )}
               <Link
                 to={auth.allowed ? "/account" : "/access-denied"}
                 className="inline-flex h-9 items-center rounded-[10px] border border-border px-3 text-[14px] font-medium text-text-primary transition-colors hover:bg-surface-hover"
@@ -147,6 +155,17 @@ export function SiteHeader() {
                     : "Sign in with Google"}
                 </Link>
               </li>
+              {auth.allowed && (auth.grant?.role === "owner" || auth.grant?.role === "admin") && (
+                <li>
+                  <Link
+                    to="/admin"
+                    onClick={() => setOpen(false)}
+                    className="flex h-11 items-center rounded-[10px] px-3 text-[15px] font-medium text-text-primary hover:bg-surface-hover"
+                  >
+                    Administration
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
         </div>
