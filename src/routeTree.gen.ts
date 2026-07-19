@@ -19,6 +19,19 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DocsUpdatesRouteImport } from './routes/docs.updates'
+import { Route as DocsTroubleshootingRouteImport } from './routes/docs.troubleshooting'
+import { Route as DocsToolsRouteImport } from './routes/docs.tools'
+import { Route as DocsTerminalRouteImport } from './routes/docs.terminal'
+import { Route as DocsProjectsRouteImport } from './routes/docs.projects'
+import { Route as DocsPermissionsRouteImport } from './routes/docs.permissions'
+import { Route as DocsInstallationRouteImport } from './routes/docs.installation'
+import { Route as DocsGitRouteImport } from './routes/docs.git'
+import { Route as DocsGettingStartedRouteImport } from './routes/docs.getting-started'
+import { Route as DocsFileAccessRouteImport } from './routes/docs.file-access'
+import { Route as DocsFaqRouteImport } from './routes/docs.faq'
+import { Route as DocsConfigurationRouteImport } from './routes/docs.configuration'
+import { Route as DocsChatsRouteImport } from './routes/docs.chats'
 import { Route as ApiReleasesLatestRouteImport } from './routes/api/releases/latest'
 
 const SecurityRoute = SecurityRouteImport.update({
@@ -71,6 +84,71 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocsUpdatesRoute = DocsUpdatesRouteImport.update({
+  id: '/updates',
+  path: '/updates',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsTroubleshootingRoute = DocsTroubleshootingRouteImport.update({
+  id: '/troubleshooting',
+  path: '/troubleshooting',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsToolsRoute = DocsToolsRouteImport.update({
+  id: '/tools',
+  path: '/tools',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsTerminalRoute = DocsTerminalRouteImport.update({
+  id: '/terminal',
+  path: '/terminal',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsProjectsRoute = DocsProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsPermissionsRoute = DocsPermissionsRouteImport.update({
+  id: '/permissions',
+  path: '/permissions',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsInstallationRoute = DocsInstallationRouteImport.update({
+  id: '/installation',
+  path: '/installation',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsGitRoute = DocsGitRouteImport.update({
+  id: '/git',
+  path: '/git',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsGettingStartedRoute = DocsGettingStartedRouteImport.update({
+  id: '/getting-started',
+  path: '/getting-started',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsFileAccessRoute = DocsFileAccessRouteImport.update({
+  id: '/file-access',
+  path: '/file-access',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsFaqRoute = DocsFaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsConfigurationRoute = DocsConfigurationRouteImport.update({
+  id: '/configuration',
+  path: '/configuration',
+  getParentRoute: () => DocsRoute,
+} as any)
+const DocsChatsRoute = DocsChatsRouteImport.update({
+  id: '/chats',
+  path: '/chats',
+  getParentRoute: () => DocsRoute,
+} as any)
 const ApiReleasesLatestRoute = ApiReleasesLatestRouteImport.update({
   id: '/api/releases/latest',
   path: '/api/releases/latest',
@@ -82,12 +160,25 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
-  '/docs': typeof DocsRoute
+  '/docs': typeof DocsRouteWithChildren
   '/download': typeof DownloadRoute
   '/enterprise': typeof EnterpriseRoute
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/security': typeof SecurityRoute
+  '/docs/chats': typeof DocsChatsRoute
+  '/docs/configuration': typeof DocsConfigurationRoute
+  '/docs/faq': typeof DocsFaqRoute
+  '/docs/file-access': typeof DocsFileAccessRoute
+  '/docs/getting-started': typeof DocsGettingStartedRoute
+  '/docs/git': typeof DocsGitRoute
+  '/docs/installation': typeof DocsInstallationRoute
+  '/docs/permissions': typeof DocsPermissionsRoute
+  '/docs/projects': typeof DocsProjectsRoute
+  '/docs/terminal': typeof DocsTerminalRoute
+  '/docs/tools': typeof DocsToolsRoute
+  '/docs/troubleshooting': typeof DocsTroubleshootingRoute
+  '/docs/updates': typeof DocsUpdatesRoute
   '/api/releases/latest': typeof ApiReleasesLatestRoute
 }
 export interface FileRoutesByTo {
@@ -95,12 +186,25 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
-  '/docs': typeof DocsRoute
+  '/docs': typeof DocsRouteWithChildren
   '/download': typeof DownloadRoute
   '/enterprise': typeof EnterpriseRoute
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/security': typeof SecurityRoute
+  '/docs/chats': typeof DocsChatsRoute
+  '/docs/configuration': typeof DocsConfigurationRoute
+  '/docs/faq': typeof DocsFaqRoute
+  '/docs/file-access': typeof DocsFileAccessRoute
+  '/docs/getting-started': typeof DocsGettingStartedRoute
+  '/docs/git': typeof DocsGitRoute
+  '/docs/installation': typeof DocsInstallationRoute
+  '/docs/permissions': typeof DocsPermissionsRoute
+  '/docs/projects': typeof DocsProjectsRoute
+  '/docs/terminal': typeof DocsTerminalRoute
+  '/docs/tools': typeof DocsToolsRoute
+  '/docs/troubleshooting': typeof DocsTroubleshootingRoute
+  '/docs/updates': typeof DocsUpdatesRoute
   '/api/releases/latest': typeof ApiReleasesLatestRoute
 }
 export interface FileRoutesById {
@@ -109,12 +213,25 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
-  '/docs': typeof DocsRoute
+  '/docs': typeof DocsRouteWithChildren
   '/download': typeof DownloadRoute
   '/enterprise': typeof EnterpriseRoute
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/security': typeof SecurityRoute
+  '/docs/chats': typeof DocsChatsRoute
+  '/docs/configuration': typeof DocsConfigurationRoute
+  '/docs/faq': typeof DocsFaqRoute
+  '/docs/file-access': typeof DocsFileAccessRoute
+  '/docs/getting-started': typeof DocsGettingStartedRoute
+  '/docs/git': typeof DocsGitRoute
+  '/docs/installation': typeof DocsInstallationRoute
+  '/docs/permissions': typeof DocsPermissionsRoute
+  '/docs/projects': typeof DocsProjectsRoute
+  '/docs/terminal': typeof DocsTerminalRoute
+  '/docs/tools': typeof DocsToolsRoute
+  '/docs/troubleshooting': typeof DocsTroubleshootingRoute
+  '/docs/updates': typeof DocsUpdatesRoute
   '/api/releases/latest': typeof ApiReleasesLatestRoute
 }
 export interface FileRouteTypes {
@@ -130,6 +247,19 @@ export interface FileRouteTypes {
     | '/features'
     | '/how-it-works'
     | '/security'
+    | '/docs/chats'
+    | '/docs/configuration'
+    | '/docs/faq'
+    | '/docs/file-access'
+    | '/docs/getting-started'
+    | '/docs/git'
+    | '/docs/installation'
+    | '/docs/permissions'
+    | '/docs/projects'
+    | '/docs/terminal'
+    | '/docs/tools'
+    | '/docs/troubleshooting'
+    | '/docs/updates'
     | '/api/releases/latest'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -143,6 +273,19 @@ export interface FileRouteTypes {
     | '/features'
     | '/how-it-works'
     | '/security'
+    | '/docs/chats'
+    | '/docs/configuration'
+    | '/docs/faq'
+    | '/docs/file-access'
+    | '/docs/getting-started'
+    | '/docs/git'
+    | '/docs/installation'
+    | '/docs/permissions'
+    | '/docs/projects'
+    | '/docs/terminal'
+    | '/docs/tools'
+    | '/docs/troubleshooting'
+    | '/docs/updates'
     | '/api/releases/latest'
   id:
     | '__root__'
@@ -156,6 +299,19 @@ export interface FileRouteTypes {
     | '/features'
     | '/how-it-works'
     | '/security'
+    | '/docs/chats'
+    | '/docs/configuration'
+    | '/docs/faq'
+    | '/docs/file-access'
+    | '/docs/getting-started'
+    | '/docs/git'
+    | '/docs/installation'
+    | '/docs/permissions'
+    | '/docs/projects'
+    | '/docs/terminal'
+    | '/docs/tools'
+    | '/docs/troubleshooting'
+    | '/docs/updates'
     | '/api/releases/latest'
   fileRoutesById: FileRoutesById
 }
@@ -164,7 +320,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ChangelogRoute: typeof ChangelogRoute
   ContactRoute: typeof ContactRoute
-  DocsRoute: typeof DocsRoute
+  DocsRoute: typeof DocsRouteWithChildren
   DownloadRoute: typeof DownloadRoute
   EnterpriseRoute: typeof EnterpriseRoute
   FeaturesRoute: typeof FeaturesRoute
@@ -245,6 +401,97 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/docs/updates': {
+      id: '/docs/updates'
+      path: '/updates'
+      fullPath: '/docs/updates'
+      preLoaderRoute: typeof DocsUpdatesRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/troubleshooting': {
+      id: '/docs/troubleshooting'
+      path: '/troubleshooting'
+      fullPath: '/docs/troubleshooting'
+      preLoaderRoute: typeof DocsTroubleshootingRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/tools': {
+      id: '/docs/tools'
+      path: '/tools'
+      fullPath: '/docs/tools'
+      preLoaderRoute: typeof DocsToolsRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/terminal': {
+      id: '/docs/terminal'
+      path: '/terminal'
+      fullPath: '/docs/terminal'
+      preLoaderRoute: typeof DocsTerminalRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/projects': {
+      id: '/docs/projects'
+      path: '/projects'
+      fullPath: '/docs/projects'
+      preLoaderRoute: typeof DocsProjectsRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/permissions': {
+      id: '/docs/permissions'
+      path: '/permissions'
+      fullPath: '/docs/permissions'
+      preLoaderRoute: typeof DocsPermissionsRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/installation': {
+      id: '/docs/installation'
+      path: '/installation'
+      fullPath: '/docs/installation'
+      preLoaderRoute: typeof DocsInstallationRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/git': {
+      id: '/docs/git'
+      path: '/git'
+      fullPath: '/docs/git'
+      preLoaderRoute: typeof DocsGitRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/getting-started': {
+      id: '/docs/getting-started'
+      path: '/getting-started'
+      fullPath: '/docs/getting-started'
+      preLoaderRoute: typeof DocsGettingStartedRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/file-access': {
+      id: '/docs/file-access'
+      path: '/file-access'
+      fullPath: '/docs/file-access'
+      preLoaderRoute: typeof DocsFileAccessRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/faq': {
+      id: '/docs/faq'
+      path: '/faq'
+      fullPath: '/docs/faq'
+      preLoaderRoute: typeof DocsFaqRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/configuration': {
+      id: '/docs/configuration'
+      path: '/configuration'
+      fullPath: '/docs/configuration'
+      preLoaderRoute: typeof DocsConfigurationRouteImport
+      parentRoute: typeof DocsRoute
+    }
+    '/docs/chats': {
+      id: '/docs/chats'
+      path: '/chats'
+      fullPath: '/docs/chats'
+      preLoaderRoute: typeof DocsChatsRouteImport
+      parentRoute: typeof DocsRoute
+    }
     '/api/releases/latest': {
       id: '/api/releases/latest'
       path: '/api/releases/latest'
@@ -255,12 +502,46 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface DocsRouteChildren {
+  DocsChatsRoute: typeof DocsChatsRoute
+  DocsConfigurationRoute: typeof DocsConfigurationRoute
+  DocsFaqRoute: typeof DocsFaqRoute
+  DocsFileAccessRoute: typeof DocsFileAccessRoute
+  DocsGettingStartedRoute: typeof DocsGettingStartedRoute
+  DocsGitRoute: typeof DocsGitRoute
+  DocsInstallationRoute: typeof DocsInstallationRoute
+  DocsPermissionsRoute: typeof DocsPermissionsRoute
+  DocsProjectsRoute: typeof DocsProjectsRoute
+  DocsTerminalRoute: typeof DocsTerminalRoute
+  DocsToolsRoute: typeof DocsToolsRoute
+  DocsTroubleshootingRoute: typeof DocsTroubleshootingRoute
+  DocsUpdatesRoute: typeof DocsUpdatesRoute
+}
+
+const DocsRouteChildren: DocsRouteChildren = {
+  DocsChatsRoute: DocsChatsRoute,
+  DocsConfigurationRoute: DocsConfigurationRoute,
+  DocsFaqRoute: DocsFaqRoute,
+  DocsFileAccessRoute: DocsFileAccessRoute,
+  DocsGettingStartedRoute: DocsGettingStartedRoute,
+  DocsGitRoute: DocsGitRoute,
+  DocsInstallationRoute: DocsInstallationRoute,
+  DocsPermissionsRoute: DocsPermissionsRoute,
+  DocsProjectsRoute: DocsProjectsRoute,
+  DocsTerminalRoute: DocsTerminalRoute,
+  DocsToolsRoute: DocsToolsRoute,
+  DocsTroubleshootingRoute: DocsTroubleshootingRoute,
+  DocsUpdatesRoute: DocsUpdatesRoute,
+}
+
+const DocsRouteWithChildren = DocsRoute._addFileChildren(DocsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ChangelogRoute: ChangelogRoute,
   ContactRoute: ContactRoute,
-  DocsRoute: DocsRoute,
+  DocsRoute: DocsRouteWithChildren,
   DownloadRoute: DownloadRoute,
   EnterpriseRoute: EnterpriseRoute,
   FeaturesRoute: FeaturesRoute,
