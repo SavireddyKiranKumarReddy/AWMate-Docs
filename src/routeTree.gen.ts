@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as FeaturesRouteImport } from './routes/features'
@@ -19,6 +20,9 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LegalTermsOfServiceRouteImport } from './routes/legal.terms-of-service'
+import { Route as LegalPrivacyPolicyRouteImport } from './routes/legal.privacy-policy'
+import { Route as LegalLicensesRouteImport } from './routes/legal.licenses'
 import { Route as DocsUpdatesRouteImport } from './routes/docs.updates'
 import { Route as DocsTroubleshootingRouteImport } from './routes/docs.troubleshooting'
 import { Route as DocsToolsRouteImport } from './routes/docs.tools'
@@ -34,6 +38,11 @@ import { Route as DocsConfigurationRouteImport } from './routes/docs.configurati
 import { Route as DocsChatsRouteImport } from './routes/docs.chats'
 import { Route as ApiReleasesLatestRouteImport } from './routes/api/releases/latest'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SecurityRoute = SecurityRouteImport.update({
   id: '/security',
   path: '/security',
@@ -82,6 +91,21 @@ const AboutRoute = AboutRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalTermsOfServiceRoute = LegalTermsOfServiceRouteImport.update({
+  id: '/legal/terms-of-service',
+  path: '/legal/terms-of-service',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPrivacyPolicyRoute = LegalPrivacyPolicyRouteImport.update({
+  id: '/legal/privacy-policy',
+  path: '/legal/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalLicensesRoute = LegalLicensesRouteImport.update({
+  id: '/legal/licenses',
+  path: '/legal/licenses',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocsUpdatesRoute = DocsUpdatesRouteImport.update({
@@ -166,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/security': typeof SecurityRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/docs/chats': typeof DocsChatsRoute
   '/docs/configuration': typeof DocsConfigurationRoute
   '/docs/faq': typeof DocsFaqRoute
@@ -179,6 +204,9 @@ export interface FileRoutesByFullPath {
   '/docs/tools': typeof DocsToolsRoute
   '/docs/troubleshooting': typeof DocsTroubleshootingRoute
   '/docs/updates': typeof DocsUpdatesRoute
+  '/legal/licenses': typeof LegalLicensesRoute
+  '/legal/privacy-policy': typeof LegalPrivacyPolicyRoute
+  '/legal/terms-of-service': typeof LegalTermsOfServiceRoute
   '/api/releases/latest': typeof ApiReleasesLatestRoute
 }
 export interface FileRoutesByTo {
@@ -192,6 +220,7 @@ export interface FileRoutesByTo {
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/security': typeof SecurityRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/docs/chats': typeof DocsChatsRoute
   '/docs/configuration': typeof DocsConfigurationRoute
   '/docs/faq': typeof DocsFaqRoute
@@ -205,6 +234,9 @@ export interface FileRoutesByTo {
   '/docs/tools': typeof DocsToolsRoute
   '/docs/troubleshooting': typeof DocsTroubleshootingRoute
   '/docs/updates': typeof DocsUpdatesRoute
+  '/legal/licenses': typeof LegalLicensesRoute
+  '/legal/privacy-policy': typeof LegalPrivacyPolicyRoute
+  '/legal/terms-of-service': typeof LegalTermsOfServiceRoute
   '/api/releases/latest': typeof ApiReleasesLatestRoute
 }
 export interface FileRoutesById {
@@ -219,6 +251,7 @@ export interface FileRoutesById {
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/security': typeof SecurityRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/docs/chats': typeof DocsChatsRoute
   '/docs/configuration': typeof DocsConfigurationRoute
   '/docs/faq': typeof DocsFaqRoute
@@ -232,6 +265,9 @@ export interface FileRoutesById {
   '/docs/tools': typeof DocsToolsRoute
   '/docs/troubleshooting': typeof DocsTroubleshootingRoute
   '/docs/updates': typeof DocsUpdatesRoute
+  '/legal/licenses': typeof LegalLicensesRoute
+  '/legal/privacy-policy': typeof LegalPrivacyPolicyRoute
+  '/legal/terms-of-service': typeof LegalTermsOfServiceRoute
   '/api/releases/latest': typeof ApiReleasesLatestRoute
 }
 export interface FileRouteTypes {
@@ -247,6 +283,7 @@ export interface FileRouteTypes {
     | '/features'
     | '/how-it-works'
     | '/security'
+    | '/sitemap.xml'
     | '/docs/chats'
     | '/docs/configuration'
     | '/docs/faq'
@@ -260,6 +297,9 @@ export interface FileRouteTypes {
     | '/docs/tools'
     | '/docs/troubleshooting'
     | '/docs/updates'
+    | '/legal/licenses'
+    | '/legal/privacy-policy'
+    | '/legal/terms-of-service'
     | '/api/releases/latest'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -273,6 +313,7 @@ export interface FileRouteTypes {
     | '/features'
     | '/how-it-works'
     | '/security'
+    | '/sitemap.xml'
     | '/docs/chats'
     | '/docs/configuration'
     | '/docs/faq'
@@ -286,6 +327,9 @@ export interface FileRouteTypes {
     | '/docs/tools'
     | '/docs/troubleshooting'
     | '/docs/updates'
+    | '/legal/licenses'
+    | '/legal/privacy-policy'
+    | '/legal/terms-of-service'
     | '/api/releases/latest'
   id:
     | '__root__'
@@ -299,6 +343,7 @@ export interface FileRouteTypes {
     | '/features'
     | '/how-it-works'
     | '/security'
+    | '/sitemap.xml'
     | '/docs/chats'
     | '/docs/configuration'
     | '/docs/faq'
@@ -312,6 +357,9 @@ export interface FileRouteTypes {
     | '/docs/tools'
     | '/docs/troubleshooting'
     | '/docs/updates'
+    | '/legal/licenses'
+    | '/legal/privacy-policy'
+    | '/legal/terms-of-service'
     | '/api/releases/latest'
   fileRoutesById: FileRoutesById
 }
@@ -326,11 +374,22 @@ export interface RootRouteChildren {
   FeaturesRoute: typeof FeaturesRoute
   HowItWorksRoute: typeof HowItWorksRoute
   SecurityRoute: typeof SecurityRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  LegalLicensesRoute: typeof LegalLicensesRoute
+  LegalPrivacyPolicyRoute: typeof LegalPrivacyPolicyRoute
+  LegalTermsOfServiceRoute: typeof LegalTermsOfServiceRoute
   ApiReleasesLatestRoute: typeof ApiReleasesLatestRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/security': {
       id: '/security'
       path: '/security'
@@ -399,6 +458,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/terms-of-service': {
+      id: '/legal/terms-of-service'
+      path: '/legal/terms-of-service'
+      fullPath: '/legal/terms-of-service'
+      preLoaderRoute: typeof LegalTermsOfServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/privacy-policy': {
+      id: '/legal/privacy-policy'
+      path: '/legal/privacy-policy'
+      fullPath: '/legal/privacy-policy'
+      preLoaderRoute: typeof LegalPrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/licenses': {
+      id: '/legal/licenses'
+      path: '/legal/licenses'
+      fullPath: '/legal/licenses'
+      preLoaderRoute: typeof LegalLicensesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/docs/updates': {
@@ -547,6 +627,10 @@ const rootRouteChildren: RootRouteChildren = {
   FeaturesRoute: FeaturesRoute,
   HowItWorksRoute: HowItWorksRoute,
   SecurityRoute: SecurityRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  LegalLicensesRoute: LegalLicensesRoute,
+  LegalPrivacyPolicyRoute: LegalPrivacyPolicyRoute,
+  LegalTermsOfServiceRoute: LegalTermsOfServiceRoute,
   ApiReleasesLatestRoute: ApiReleasesLatestRoute,
 }
 export const routeTree = rootRouteImport
