@@ -1,8 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Download, ExternalLink } from "lucide-react";
 import { Page, Container, PageHeader, Card } from "@/components/site/Page";
-import { fetchLatestRelease, formatBytes } from "@/lib/release";
+import { fetchLatestRelease, formatBytes, latestWindowsInstallerUrl } from "@/lib/release";
 
 export const Route = createFileRoute("/download")({
   head: () => ({
@@ -10,7 +10,8 @@ export const Route = createFileRoute("/download")({
       { title: "Download AWMate — Windows desktop" },
       {
         name: "description",
-        content: "Download the AWMate Beta desktop application for Windows. System requirements, installation steps and SmartScreen guidance.",
+        content:
+          "Download the AWMate Beta desktop application for Windows. System requirements, installation steps and SmartScreen guidance.",
       },
       { property: "og:title", content: "Download AWMate" },
       { property: "og:url", content: "/download" },
@@ -33,7 +34,7 @@ function DownloadPage() {
         <PageHeader
           eyebrow="Download · Windows · Beta"
           title="Install AWMate on your Windows desktop."
-          description="AWMate Beta is distributed as a signed Windows installer via official NxtGenSec releases."
+          description="AWMate Beta is distributed as a Windows installer through official AWMate GitHub releases."
         />
 
         <div className="grid gap-4 md:grid-cols-3">
@@ -42,7 +43,9 @@ function DownloadPage() {
               Latest release
             </p>
             {isLoading ? (
-              <p className="mt-3 text-[14px] text-text-secondary">Checking for the latest release…</p>
+              <p className="mt-3 text-[14px] text-text-secondary">
+                Checking for the latest release…
+              </p>
             ) : release?.available && release.version ? (
               <>
                 <h2 className="mt-2 text-[28px] font-semibold text-text-primary">
@@ -88,12 +91,13 @@ function DownloadPage() {
                     "The first public AWMate Beta release has not been published yet. Check back shortly or read the documentation to get familiar with the product."}
                 </p>
                 <div className="mt-6">
-                  <Link
-                    to="/docs/getting-started"
-                    className="inline-flex h-11 items-center rounded-[10px] border border-border px-5 text-[14px] font-medium text-text-primary hover:bg-surface-hover"
+                  <a
+                    href={latestWindowsInstallerUrl}
+                    className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-primary px-5 text-[14px] font-medium text-primary-foreground transition-opacity hover:opacity-90"
                   >
-                    Read getting started
-                  </Link>
+                    <Download size={16} />
+                    Download latest Windows installer
+                  </a>
                 </div>
               </>
             )}
@@ -114,15 +118,28 @@ function DownloadPage() {
         <div className="mx-auto mt-16 max-w-3xl border-t border-border pt-10 pb-24">
           <h2 className="text-[24px] font-semibold text-text-primary">Installation steps</h2>
           <ol className="mt-6 space-y-4 text-[15px] leading-[1.7] text-text-secondary">
-            <li><span className="text-text-primary">1.</span> Download the Windows installer above.</li>
-            <li><span className="text-text-primary">2.</span> Run the installer and follow the setup prompts.</li>
-            <li><span className="text-text-primary">3.</span> If Windows SmartScreen shows a warning, verify the publisher and file source before continuing. Do not bypass legitimate security warnings without reason.</li>
-            <li><span className="text-text-primary">4.</span> Launch AWMate from the Start menu.</li>
-            <li><span className="text-text-primary">5.</span> Select a project folder to get started.</li>
+            <li>
+              <span className="text-text-primary">1.</span> Download the Windows installer above.
+            </li>
+            <li>
+              <span className="text-text-primary">2.</span> Run the installer and follow the setup
+              prompts.
+            </li>
+            <li>
+              <span className="text-text-primary">3.</span> If Windows SmartScreen shows a warning,
+              verify the publisher and file source before continuing. Do not bypass legitimate
+              security warnings without reason.
+            </li>
+            <li>
+              <span className="text-text-primary">4.</span> Launch AWMate from the Start menu.
+            </li>
+            <li>
+              <span className="text-text-primary">5.</span> Select a project folder to get started.
+            </li>
           </ol>
           <p className="mt-8 text-[13px] text-text-muted">
-            AWMate is powered by NxtGenSec (Next Generation Security). Only download from
-            official release links.
+            AWMate is powered by NxtGenSec (Next Generation Security). Only download from official
+            release links.
           </p>
         </div>
       </Container>

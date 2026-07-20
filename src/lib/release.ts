@@ -8,6 +8,9 @@ export interface ReleaseInfo {
   message?: string;
 }
 
+export const latestWindowsInstallerUrl =
+  "https://github.com/SavireddyKiranKumarReddy/AWMate/releases/latest/download/awmate-desktop-win-x64.exe";
+
 export async function fetchLatestRelease(): Promise<ReleaseInfo> {
   try {
     const res = await fetch("/api/releases/latest");

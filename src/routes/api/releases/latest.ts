@@ -33,7 +33,7 @@ export const Route = createFileRoute("/api/releases/latest")({
 
         try {
           const res = await fetch(
-            "https://api.github.com/repos/nxtgensec/awmate/releases/latest",
+            "https://api.github.com/repos/SavireddyKiranKumarReddy/AWMate/releases/latest",
             { headers },
           );
 
@@ -83,7 +83,7 @@ function json(body: NormalizedRelease) {
   return new Response(JSON.stringify(body), {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "public, s-maxage=600, stale-while-revalidate=86400",
+      "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
       "Access-Control-Allow-Origin": "*",
     },
   });
